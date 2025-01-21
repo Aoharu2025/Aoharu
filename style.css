@@ -27,6 +27,13 @@ header {
   padding: 20px;
 }
 
+#toggle-categories {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 15;
+}
+
 h1 {
   margin: 0;
   font-size: 1.8rem;
@@ -49,25 +56,425 @@ ul {
 
 ul li {
   font-family: 'Grandiflora One', sans-serif; /* 학생 이름에 다른 폰트 적용 */
-  font-size: 1rem;
+  font-size: 1.2rem;
+  font-weight: bold;
 }
 
-.vacant-list {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4개의 열로 나누기 */
-  gap: 20px; /* 각 항목 사이의 간격 */
-  margin-top: 20px;
-}
-
-.vacant-list div {
-  background-color: rgba(255, 255, 255, 0.5); /* 더 투명하게 조정 */
+#vacant-section {
+  margin: 20px auto;
   padding: 10px;
-  border-radius: 5px;
   text-align: center;
+  max-width: 80%; /* 적당한 가로 폭 설정 */
+}
+
+#vacant-section h2 {
+  font-size: 1.5rem;
+  margin-bottom: 20px; /* 제목과 이름 목록 간격 추가 */
+  font-weight: bold;
+  text-align: center; /* 제목 가운데 정렬 */
+}
+
+#vacant-section div {
+  display: inline-block; /* 이름을 inline-block으로 변경 */
+  margin: 5px; /* 이름 간격 추가 */
+  padding: 2px 10px; /* 이름 텍스트와 박스 간 여백 */
+  font-size: 1rem; /* 텍스트 크기 조정 */
+  font-family: 'Grandiflora One', sans-serif; /* 글꼴 적용 */
+  border: none; /* 테두리 제거 */
+  background: none; /* 배경 제거 */
+  white-space: nowrap; /* 이름 잘림 방지 */
+}
+
+#vacant-section div::before {
+  content: '『'; /* 이름 앞에 추가 */
+}
+
+#vacant-section div::after {
+  content: '』'; /* 이름 뒤에 추가 */
+}
+
+
+div {
+  font-family: 'Grandiflora One', sans-serif; /* 학생 이름에 다른 폰트 적용 */
   font-size: 1rem;
+  font-weight: bold;
 }
 
 #name-input {
   padding: 5px;
   margin-right: 10px;
 }
+
+#categories-sidebar {
+  position: fixed;
+  top: 0;
+  right: -300px;
+  width: 300px;
+  height: 100%;
+  background-color: white;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+  transition: right 0.3s ease;
+  z-index: 10;
+  overflow-y: auto; /* 스크롤 활성화 */
+}
+
+#categories-sidebar.show {
+  right: 0;
+}
+
+/* 숨기기 기본 스타일 */
+.hidden {
+  display: none;
+}
+
+.students-list {
+  list-style: none;
+  margin: 0;
+  padding: 0 15px;
+  background-color: #f9f9f9;
+}
+
+.students-list li {
+  margin: 5px 0;
+}
+
+.category-item {
+  cursor: pointer;
+  font-weight: bold;
+  margin: 10px 0;
+  padding: 5px 10px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+}
+
+.category-item:hover {
+  background-color: #e0e0e0;
+}
+
+h3 {
+  font-family: 'Diphylleia', sans-serif; /* 학생 이름에 다른 폰트 적용 */
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+
+/* Rabbit 소대 서브 카테고리 배경색 */
+.sub-category-item[data-sub-category="Rabbit 소대"] {
+  background-color: #add8e6; /* 연한 파란색 */
+  padding: 10px;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+/* Fox 소대 서브 카테고리 배경색 */
+.sub-category-item[data-sub-category="Fox 소대"] {
+  background-color: #f08080; /* 연한 빨간색 */
+  padding: 10px;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+/* 만마전 서브 카테고리 배경색 */
+.sub-category-item[data-sub-category="만마전"] {
+  background-color: #c2a8de; /* 진한 보라색 */
+  padding: 10px;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+/* 선도부 서브 카테고리 배경색 */
+.sub-category-item[data-sub-category="선도부"] {
+  background-color: #eca1c4; /* 진한 분홍색 */
+  padding: 10px;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+/* 흥신소 서브 카테고리 배경색 */
+.sub-category-item[data-sub-category="흥신소"] {
+  background-color: #c2a8de; /* 진한 보라색 */
+  padding: 10px;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+/* 미식연구회 서브 카테고리 배경색 */
+.sub-category-item[data-sub-category="미식연구회"] {
+  background-color: #eca1c4; /* 진한 분홍색 */
+  padding: 10px;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+/* 온천개발부 서브 카테고리 배경색 */
+.sub-category-item[data-sub-category="온천개발부"] {
+  background-color: #c2a8de; /* 진한 보라색 */
+  padding: 10px;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+/* 반짝반짝부 서브 카테고리 배경색 */
+.sub-category-item[data-sub-category="반짝반짝부"] {
+  background-color: #eca1c4; /* 진한 분홍색 */
+  padding: 10px;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+/* 급양부 서브 카테고리 배경색 */
+.sub-category-item[data-sub-category="급양부"] {
+  background-color: #c2a8de; /* 진한 보라색 */
+  padding: 10px;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+/* 응급의학부 서브 카테고리 배경색 */
+.sub-category-item[data-sub-category="응급의학부"] {
+  background-color: #eca1c4; /* 진한 분홍색 */
+  padding: 10px;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+/* 티파티 서브 카테고리 배경색 */
+.sub-category-item[data-sub-category="티파티"] {
+  background-color: #fce5a2; /* 진한 연노랑색 */
+  padding: 10px;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+/* 보충수업부 서브 카테고리 배경색 */
+.sub-category-item[data-sub-category="보충수업부"] {
+  background-color: #f8c490; /* 진한 연주황색 */
+  padding: 10px;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+/* 자경단 서브 카테고리 배경색 */
+.sub-category-item[data-sub-category="자경단"] {
+  background-color: #fce5a2; /* 진한 연노랑색 */
+  padding: 10px;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+/* 도서부 서브 카테고리 배경색 */
+.sub-category-item[data-sub-category="도서부"] {
+  background-color: #f8c490; /* 진한 연주황색 */
+  padding: 10px;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+/* 방과후 디저트부 서브 카테고리 배경색 */
+.sub-category-item[data-sub-category="방과후 디저트부"] {
+  background-color: #fce5a2; /* 진한 연노랑색 */
+  padding: 10px;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+/* 구호기사단 서브 카테고리 배경색 */
+.sub-category-item[data-sub-category="구호기사단"] {
+  background-color: #f8c490; /* 진한 연주황색 */
+  padding: 10px;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+/* 정의실현부 서브 카테고리 배경색 */
+.sub-category-item[data-sub-category="정의실현부"] {
+  background-color: #fce5a2; /* 진한 연노랑색 */
+  padding: 10px;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+/* 시스터후드 서브 카테고리 배경색 */
+.sub-category-item[data-sub-category="시스터후드"] {
+  background-color: #f8c490; /* 진한 연주황색 */
+  padding: 10px;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+/* 세미나 서브 카테고리 배경색 */
+.sub-category-item[data-sub-category="세미나"] {
+  background-color: #add8e6; /* 연한 파랑색 */
+  padding: 10px;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+/* 게임개발부 서브 카테고리 배경색 */
+.sub-category-item[data-sub-category="게임개발부"] {
+  background-color: #6ca0dc; /* 진한 파랑색 */
+  padding: 10px;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+/* 베리타스 서브 카테고리 배경색 */
+.sub-category-item[data-sub-category="베리타스"] {
+  background-color: #add8e6; /* 연한 파랑색 */
+  padding: 10px;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+/* C&C 서브 카테고리 배경색 */
+.sub-category-item[data-sub-category="C&C"] {
+  background-color: #6ca0dc; /* 진한 파랑색 */
+  padding: 10px;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+/* 엔지니어부 서브 카테고리 배경색 */
+.sub-category-item[data-sub-category="엔지니어부"] {
+  background-color: #add8e6; /* 연한 파랑색 */
+  padding: 10px;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+/* 트레이닝부 서브 카테고리 배경색 */
+.sub-category-item[data-sub-category="트레이닝부"] {
+  background-color: #6ca0dc; /* 진한 파랑색 */
+  padding: 10px;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+/* 초현상특무부 서브 카테고리 배경색 */
+.sub-category-item[data-sub-category="초현상특무부"] {
+  background-color: #add8e6; /* 연한 파랑색 */
+  padding: 10px;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+/* 음양부 서브 카테고리 배경색 */
+.sub-category-item[data-sub-category="음양부"] {
+  background-color: #ffc0cb; /* 벚꽃색 */
+  padding: 10px;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+/* 마츠리운영관리부 서브 카테고리 배경색 */
+.sub-category-item[data-sub-category="마츠리운영관리부"] {
+  background-color: #dda0dd; /* 연한 보라색 */
+  padding: 10px;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+/* 수행부 서브 카테고리 배경색 */
+.sub-category-item[data-sub-category="수행부"] {
+  background-color: #ffc0cb; /* 벚꽃색 */
+  padding: 10px;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+/* 인법연구부 서브 카테고리 배경색 */
+.sub-category-item[data-sub-category="인법연구부"] {
+  background-color: #dda0dd; /* 연한 보라색 */
+  padding: 10px;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+/* 백화요란 서브 카테고리 배경색 */
+.sub-category-item[data-sub-category="백화요란"] {
+  background-color: #ffc0cb; /* 벚꽃색 */
+  padding: 10px;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+/* 화조풍월부 서브 카테고리 배경색 */
+.sub-category-item[data-sub-category="화조풍월부"] {
+  background-color: #dda0dd; /* 연한 보라색 */
+  padding: 10px;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+/* 현룡문 서브 카테고리 배경색 */
+.sub-category-item[data-sub-category="현룡문"] {
+  background-color: #98fb98; /* 연한 초록색 */
+  padding: 10px;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+/* 연단방 서브 카테고리 배경색 */
+.sub-category-item[data-sub-category="연단방"] {
+  background-color: #ffd580; /* 연한 주황색 */
+  padding: 10px;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+/* 매화원 서브 카테고리 배경색 */
+.sub-category-item[data-sub-category="매화원"] {
+  background-color: #98fb98; /* 연한 초록색 */
+  padding: 10px;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+/* 현무상회 서브 카테고리 배경색 */
+.sub-category-item[data-sub-category="현무상회"] {
+  background-color: #ffd580; /* 연한 주황색 */
+  padding: 10px;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+/* 붉은겨울 사무국 서브 카테고리 배경색 */
+.sub-category-item[data-sub-category="붉은겨울 사무국"] {
+  background-color: #ff7f7f; /* 연한 빨간색 */
+  padding: 10px;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+/* 227호 특별반 서브 카테고리 배경색 */
+.sub-category-item[data-sub-category="227호 특별반"] {
+  background-color: #ffff99; /* 연한 노란색 */
+  padding: 10px;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+/* 지식해방전선 서브 카테고리 배경색 */
+.sub-category-item[data-sub-category="지식해방전선"] {
+  background-color: #ff7f7f; /* 연한 빨간색 */
+  padding: 10px;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+/* 용역부 서브 카테고리 배경색 */
+.sub-category-item[data-sub-category="용역부"] {
+  background-color: #ffff99; /* 연한 노란색 */
+  padding: 10px;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+/* 출판부 서브 카테고리 배경색 */
+.sub-category-item[data-sub-category="출판부"] {
+  background-color: #ff7f7f; /* 연한 빨간색 */
+  padding: 10px;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
