@@ -1,0 +1,61 @@
+/* 기본 스타일 */
+body {
+  font-family: Arial, sans-serif;
+  background-image: url('https://i.imgur.com/4FUq8D6.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-color: rgba(255, 255, 255, 0.3); /* 더 투명하게 조정 */
+  text-align: center;
+}
+
+header {
+  background-color: rgba(0, 120, 215, 0.5); /* 더 투명하게 조정 */
+  color: white;
+  padding: 20px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+main {
+  margin-top: 30px;
+}
+
+.category {
+  margin-bottom: 20px;
+  font-family: 'Diphylleia', sans-serif; /* 카테고리에 다른 폰트 적용 */
+  font-weight: bold;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+ul li {
+  font-family: 'Arial', sans-serif; /* 학생 이름에 다른 폰트 적용 */
+  font-size: 1rem;
+}
+
+.vacant-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4개의 열로 나누기 */
+  gap: 20px; /* 각 항목 사이의 간격 */
+  margin-top: 20px;
+}
+
+.vacant-list div {
+  background-color: rgba(255, 255, 255, 0.5); /* 더 투명하게 조정 */
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 1rem;
+}
+
+#name-input {
+  padding: 5px;
+  margin-right: 10px;
+}
