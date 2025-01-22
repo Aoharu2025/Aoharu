@@ -29,19 +29,43 @@ document.querySelectorAll('.sub-category-item').forEach(item => {
   });
 });
 
-// 이미지 클릭 시 이미지 숨기고 비디오 표시
+// 이미지 클릭 시 이미지 유지, 비디오 표시 및 재생
 const introImage = document.getElementById('intro-image');
+const introImageContainer = document.getElementById('intro-image-container');
 const videoContainer = document.getElementById('video-container');
 const introVideo = document.getElementById('intro-video');
+const blackBackground = document.createElement('div');
+
+// 검은 배경 스타일 추가
+blackBackground.style.position = 'fixed';
+blackBackground.style.top = '0';
+blackBackground.style.left = '0';
+blackBackground.style.width = '100%';
+blackBackground.style.height = '100%';
+blackBackground.style.backgroundColor = 'black';
+blackBackground.style.zIndex = '9998';
+blackBackground.style.display = 'none';
+document.body.appendChild(blackBackground);
 
 introImage.addEventListener('click', () => {
-  document.getElementById('intro-image-container').style.display = 'none'; // 이미지 숨김
-  videoContainer.style.display = 'flex'; // 비디오 표시
-  introVideo.play(); // 비디오 자동 재생
+  // 검은 배경 표시
+  blackBackground.style.display = 'block';
+  
+  // 비디오 컨테이너 표시
+  videoContainer.style.display = 'flex';
+  
+  // 비디오 자동 재생
+  introVideo.play();
+
+  // 비디오 재생 시작 후 2초 뒤 이미지 숨김
+  setTimeout(() => {
+    introImageContainer.style.display = 'none'; // 이미지 숨김
+  }, 2000);
 });
 
-// 비디오 끝난 후 사이트 콘텐츠 표시
+// 비디오 끝난 후 검은 배경과 비디오 숨김, 사이트 콘텐츠 표시
 introVideo.addEventListener('ended', () => {
   document.body.classList.add('show-content'); // 콘텐츠 표시
   videoContainer.style.display = 'none'; // 비디오 숨김
+  blackBackground.style.display = 'none'; // 검은 배경 숨김
 });
