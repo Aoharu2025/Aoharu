@@ -29,8 +29,19 @@ document.querySelectorAll('.sub-category-item').forEach(item => {
   });
 });
 
-// 이미지 클릭 시 숨기고 사이트 내용 표시
+// 이미지 클릭 시 이미지 숨기고 비디오 표시
 const introImage = document.getElementById('intro-image');
+const videoContainer = document.getElementById('video-container');
+const introVideo = document.getElementById('intro-video');
+
 introImage.addEventListener('click', () => {
-  document.body.classList.add('show-content');
+  document.getElementById('intro-image-container').style.display = 'none'; // 이미지 숨김
+  videoContainer.style.display = 'flex'; // 비디오 표시
+  introVideo.play(); // 비디오 자동 재생
+});
+
+// 비디오 끝난 후 사이트 콘텐츠 표시
+introVideo.addEventListener('ended', () => {
+  document.body.classList.add('show-content'); // 콘텐츠 표시
+  videoContainer.style.display = 'none'; // 비디오 숨김
 });
