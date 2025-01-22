@@ -28,3 +28,9 @@ document.querySelectorAll('.sub-category-item').forEach(item => {
     }
   });
 });
+
+// 이미지 클릭 시 숨기고 사이트 내용 표시
+const introImage = document.getElementById('intro-image');
+introImage.addEventListener('click', () => {
+  document.body.classList.add('show-content');
+});
