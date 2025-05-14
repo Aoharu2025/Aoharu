@@ -268,6 +268,52 @@ document.getElementById('intro').addEventListener('click', () => {
 
 let currentPopup = null; // 현재 팝업을 추적
 
+function extractLockedStudents(data) {
+  const locked = [];
+
+  for (const key in data) {
+    const value = data[key];
+    if (Array.isArray(value)) {
+      value.forEach(name => {
+        if (name.includes("🔒")) locked.push(name);
+      });
+    } else if (typeof value === 'object') {
+      for (const sub in value) {
+        value[sub].forEach(name => {
+          if (name.includes("🔒")) locked.push(name);
+        });
+      }
+    }
+  }
+
+  return locked;
+}
+
+document.getElementById("close-nonattendance").addEventListener("click", () => {
+  document.getElementById("nonattendance-screen").style.display = "none";
+});
+
+document.getElementById("nonattendance").addEventListener("click", () => {
+  // 🔒 데이터 갱신
+  data["[비공석]"] = extractLockedStudents(data);
+
+  const listDiv = document.getElementById("nonattendance-list");
+  listDiv.innerHTML = "";
+  const students = data["[비공석]"];
+  students.forEach(student => {
+    const item = document.createElement("div");
+    item.textContent = student;
+    item.style.fontWeight = "bold";
+    item.style.fontFamily = "'Grandiflora One', serif";
+    listDiv.appendChild(item);
+  });
+
+  document.getElementById("nonattendance-screen").style.display = "flex";
+});
+
+// 최초 데이터에서 비공석 학생 자동 생성
+data["[비공석]"] = extractLockedStudents(data);
+
 function closePopup() {
   if (currentPopup) {
     currentPopup.classList.remove('show'); // 'show' 클래스를 제거하여 닫기 애니메이션 적용
@@ -283,6 +329,9 @@ function closePopup() {
 
 document.querySelectorAll('.academy').forEach(academy => {
   academy.addEventListener('click', () => {
+
+    data["[비공석]"] = extractLockedStudents(data);
+
     if (currentPopup) {
       closePopup(); // 기존 팝업 닫기
       setTimeout(createPopup, 300); // 팝업 닫기 애니메이션 후 새 팝업 생성
@@ -292,6 +341,7 @@ document.querySelectorAll('.academy').forEach(academy => {
 
     function createPopup() {
       const academyName = academy.querySelector('p').textContent;
+    if (academyName === "[비공석]") return;
 
       // 팝업 생성
       const contentDiv = document.createElement('div');
@@ -348,6 +398,7 @@ document.querySelectorAll('.academy').forEach(academy => {
       } else if (Array.isArray(data[academyName])) {
         // 동아리가 없는 학원
         const students = data[academyName];
+      
         const studentList = document.createElement('ul');
         studentList.style.listStyle = 'none';
         studentList.style.textAlign = 'center';
@@ -359,6 +410,7 @@ document.querySelectorAll('.academy').forEach(academy => {
         });
 
         contentDiv.appendChild(studentList);
+       
       } else {
         contentDiv.innerHTML += `<p>학생 명부가 없습니다.</p>`;
       }
