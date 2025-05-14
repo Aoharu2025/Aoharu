@@ -6,7 +6,63 @@
   <link href="https://fonts.googleapis.com/css2?family=Diphylleia&family=Grandiflora+One&display=swap" rel="stylesheet">
   <title>청춘 - Blue Archive</title>
   <style>
+ 
+#nonattendance-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: white;
+  z-index: 10000;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
 
+/* 🟢 넓이를 제한하지 않고 전체 화면 너비 활용 */
+.nonattendance-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0 20px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+.nonattendance-header h2 {
+  font-family: 'Diphylleia', sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0;
+}
+
+#close-nonattendance {
+  background: #87CEEB;
+  border: none;
+  padding: 6px 12px;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+/* 리스트 영역만 그리드로 제한 */
+#nonattendance-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 10px;
+  width: 100%;
+  max-width: 600px; /* ✅ 이건 유지 */
+  text-align: center;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
   /* Add this to your existing CSS */
   #intro.hidden {
     transform: translateY(-100%);
@@ -45,6 +101,10 @@
     /* Specific placement */
     #student-council {
       grid-column: 1 / 2;
+    }
+
+    #nonattendance {
+      grid-colume: 2 / 3;
     }
 
     #schale {
@@ -217,6 +277,10 @@
       <img src="https://i.imgur.com/H7juyuM.png" alt="총학생회">
       <p>총학생회</p>
     </div>
+    <div class="academy" id="nonattendance">
+      <img src="https://i.imgur.com/lFW1oBj.png" alt="비공석">
+      <p>[비공석]</p>
+    </div>
     <div class="academy" id="schale">
       <img src="https://i.imgur.com/XKvf4LS.png" alt="샬레">
       <p>샬레</p>
@@ -277,6 +341,14 @@
   <div id="dynamic-content">
     <!-- 학원 클릭 시 학생 목록이 여기에 표시됩니다. -->
   </div>
+  <div id="nonattendance-screen" style="display:none;">
+  <div class="nonattendance-header">
+    <h2>[비공석]</h2>
+    <button id="close-nonattendance">닫기</button>
+  </div>
+  <div id="nonattendance-list"></div>
+</div>
   <script src="script.js"></script>
+
 </body>
 </html>
