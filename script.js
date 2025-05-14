@@ -272,6 +272,7 @@ function extractLockedStudents(data) {
   const locked = [];
 
   for (const key in data) {
+    if (key === "[비공석]") continue; // 🔒 중복 방지: 자기 자신 탐색 금지!
     const value = data[key];
     if (Array.isArray(value)) {
       value.forEach(name => {
@@ -312,7 +313,6 @@ document.getElementById("nonattendance").addEventListener("click", () => {
 });
 
 // 최초 데이터에서 비공석 학생 자동 생성
-data["[비공석]"] = extractLockedStudents(data);
 
 function closePopup() {
   if (currentPopup) {
@@ -329,8 +329,6 @@ function closePopup() {
 
 document.querySelectorAll('.academy').forEach(academy => {
   academy.addEventListener('click', () => {
-
-    data["[비공석]"] = extractLockedStudents(data);
 
     if (currentPopup) {
       closePopup(); // 기존 팝업 닫기
