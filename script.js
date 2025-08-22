@@ -190,7 +190,7 @@ const data = {
     "고료 나구사 🔒",
     "후와 렌게",
     "키류 키쿄",
-    "카데노코지 유카리 🔒"
+    "카데노코지 유카리"
   ],
   "화조풍월부": [
     "야부키 슈로",
@@ -486,6 +486,7 @@ style.textContent = `
   }
 `;
 document.head.appendChild(style);
+
 
 
 
